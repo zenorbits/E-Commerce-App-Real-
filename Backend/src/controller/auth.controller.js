@@ -79,26 +79,26 @@ const userlogin = async (req, res) => {
         }
 
         const token = jwt.sign({
-            id:user._id
+            id: user._id
         },
-        process.env.JWT_SECRET_KEY,
-        {
-            expiresIn:'1h'
-        }
-    )
+            process.env.JWT_SECRET_KEY,
+            {
+                expiresIn: '1h'
+            }
+        )
 
-    res.cookie('token',token,{
-        httpOnly:true,
-        secure:process.env.NODE_ENV === 'production',
-        sameSite:'strict'
-    })
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+        })
 
 
-    res.status(200).json({
-        message:'User Logged in successfull',
-        token,
-        user:{id:user._id,username:user.username,email:user.email}
-    })
+        res.status(200).json({
+            message: 'User Logged in successfull',
+            token,
+            user: { id: user._id, username: user.username, email: user.email }
+        })
 
     } catch (error) {
         console.log(error)
@@ -109,6 +109,18 @@ const userlogin = async (req, res) => {
     }
 }
 
+const userLogout = async (req, res) => {
+
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+    });
+    return res.status(200).json({
+        message: 'User Logged Out Successfully'
+    })
+}
 
 
-module.exports = {userRegister,userlogin}
+
+module.exports = { userRegister, userlogin, userLogout }

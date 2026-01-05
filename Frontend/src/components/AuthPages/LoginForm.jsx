@@ -5,8 +5,12 @@ import { userLogin } from "../../redux/features/auth/userAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUserLoginMutation } from "../../redux/api/userAuthApiSlice";
 
 const Loginform = () => {
+
+  const [loginMutation, { isLoading, error, data }] = useUserLoginMutation();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,28 +23,24 @@ const Loginform = () => {
     const { email, password } = formData;
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/user/login",
-        { email, password },
-        { withCredentials: true }
-      );
+      const response = await loginMutation({ email, password }).unwrap();
 
       // ✅ Update Redux state
       dispatch(
         userLogin({
-          email: response.data.email,
-          token: response.data.token,
+          email: response.email,
+          token: response.token,
         })
       );
 
       toast.success("Login successful!");
-      console.log("Login successful:", response.data);
+      console.log("Login successful:", response);
 
       // ✅ Redirect after success
       setTimeout(() => navigate("/dashboard"), 2000);
     } catch (error) {
       console.error("Login failed:", error);
-      toast.error(error.response?.data?.message || "Login failed");
+      toast.error(error?.data?.message || "Login failed");;
     }
   };
 
@@ -100,10 +100,11 @@ const Loginform = () => {
 
         {/* Button */}
         <button
+          disabled={isLoading}
           type="submit"
           className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-bold shadow-lg hover:from-indigo-700 hover:to-purple-700 transition duration-300 transform hover:scale-105"
         >
-          Login
+          {isLoading?'Logging in...':'Login'}
         </button>
 
         {/* Extra */}
