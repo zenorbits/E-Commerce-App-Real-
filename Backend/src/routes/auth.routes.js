@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controller/auth.controller')
+const authController = require('../controller/auth.controller');
 
 //User AApil
 
-router.post('/user/register',authController.userRegister);
-router.post('/user/login',authController.userlogin);
-router.post('/user/logout',authController.userLogout);
+router.post('/user/register', authController.userRegister);
+router.post('/user/login', authController.userlogin);
+router.post('/user/logout', authController.userLogout);
 
-module.exports= router;
+module.exports = router;
 
 
