@@ -5,8 +5,12 @@ import { userRegister } from "../../redux/features/auth/userAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUserRegisterMutation } from "../../redux/api/userAuthApiSlice";
 
 const RegisterForm = () => {
+
+  const [registerMutation,{isLoading,error,data}] = useUserRegisterMutation();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -26,27 +30,22 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/user/register",
-        { username, email, password },
-        { withCredentials: true }
-      );
-
+      const response = await registerMutation({username,email,password}).unwrap();
       dispatch(
         userRegister({
-          username: response.data.username,
-          email: response.data.email,
-          token: response.data.token,
+          username: response.username,
+          email: response.email,
+          token: response.token,
         })
       );
 
       toast.success("Registration successful!");
-      console.log("Registration successful:", response.data);
+      console.log("Registration successful:", response);
 
       setTimeout(() => navigate("/login"), 2000); // redirect after toast
     } catch (error) {
       console.error("Registration failed:", error);
-      toast.error(error.response?.data?.message || "Registration failed");
+      toast.error(error?.data?.message || "Registration failed");
     }
   };
 
@@ -137,10 +136,11 @@ const RegisterForm = () => {
 
         {/* Button */}
         <button
+        disabled={isLoading}
           type="submit"
           className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-bold shadow-lg hover:from-indigo-700 hover:to-purple-700 transition duration-300 transform hover:scale-105"
         >
-          Register
+          {isLoading?'Registering..':'Register'}
         </button>
 
         {/* Extra */}
