@@ -5,7 +5,7 @@ import RegisterForm from './components/AuthPages/RegisterForm'
 
 const App = () => {
   return (
-    <div className='font-mono h-screen w-screen'>
+    <div className='font-mono h-screen w-screen overflow-x-hidden'>
 
       <Routes>
       <Route path = '/' element={<GeneralPage/>} />

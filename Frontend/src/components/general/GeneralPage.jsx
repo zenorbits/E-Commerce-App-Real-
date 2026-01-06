@@ -1,10 +1,12 @@
 import React from 'react'
 import GeneralNavbar from './GeneralNavbar'
+import GeneralMainBody from './GeneralMainBody'
 
 const GeneralPage = () => {
   return (
-    <div>
+    <div className='overflow-x-hidden'>
         <GeneralNavbar/>
+        <GeneralMainBody/>
     </div>
   )
 }

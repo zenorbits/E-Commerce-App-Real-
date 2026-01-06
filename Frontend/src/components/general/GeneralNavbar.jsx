@@ -11,7 +11,7 @@ const GeneralNavbar = () => {
 
   return (
     <div className="w-full text-white">
-      <div className="main h-20 bg-gradient-to-r from-black via-gray-900 to-black px-6 md:px-12 flex items-center justify-between shadow-md">
+      <div className="main h-20 bg-gradient-to-r from-black via-gray-900 to-black px-6 md:px-12 flex items-center justify-between ">
         
         {/* Brand */}
         <div className="title text-3xl  font-extrabold tracking-wide cursor-pointer text-purple-400 hover:text-purple-300 transition">
