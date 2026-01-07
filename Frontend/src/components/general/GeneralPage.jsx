@@ -4,7 +4,7 @@ import GeneralMainBody from './GeneralMainBody'
 
 const GeneralPage = () => {
   return (
-    <div className='overflow-x-hidden'>
+    <div className='overflow-x-hidden h-screen w-screen'>
         <GeneralNavbar/>
         <GeneralMainBody/>
     </div>
