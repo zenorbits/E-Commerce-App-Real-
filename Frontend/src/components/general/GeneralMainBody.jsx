@@ -16,7 +16,7 @@ const GeneralMainBody = () => {
       <main className='bg-gradient-to-r from-black via-gray-900 to-black text-white h-full'>
         <div className="categories-buttonss flex flex-col gap-8 items-center justify-center pt-12">
           <div className="title">
-            <h1 className='text-4xl font-extrabold'>Category</h1>
+            <h1 className='text-4xl font-extrabold'>Products</h1>
           </div>
           <div className="buttons flex flex-wrap items-center justify-center gap-5">
             {categories.map((cat, idx) => (

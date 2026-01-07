@@ -77,7 +77,7 @@ const AllProductsOnPage = ({ category }) => {
             <div className="main h-full w-full flex bg-gradient-to-r from-black via-gray-900 to-black">
                 <div className="products min-h-screen w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-14 px-8">
 
-                    {showProducts.map((product, idx) => (
+                    {showProducts.length > 0 ? (showProducts.map((product, idx) => (
                         <div
                             key={idx}
                             className="product-card 
@@ -118,7 +118,11 @@ const AllProductsOnPage = ({ category }) => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))) : (
+                        <div className="col-span-full flex justify-center items-center text-gray-400 text-xl font-semibold">
+                            No Products Found
+                        </div>
+                    )}
 
 
                 </div>
