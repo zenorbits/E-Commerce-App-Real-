@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser'); // corrected module name
 const dotenv = require('dotenv');
 dotenv.config();
+const middleWare  = require('./middleware/middleware');
 
 
 const authRoute = require('./routes/auth.routes');
@@ -27,6 +28,10 @@ app.use((req, res, next) => {
 //Auth Route
 
 app.use('/api/auth',authRoute);
+
+app.get('/admin/dashboard',middleWare.authMidddleWare,middleWare.requiredRole('admin'),(req,res)=>{
+    res.send('Welcome Admin')
+})
 
 
 module.exports = app;

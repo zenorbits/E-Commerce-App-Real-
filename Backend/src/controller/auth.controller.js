@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const userModel = require('../models/user.models');
+const userModel = require('../models/user.model');
 
 //user auth
 
 const userRegister = async (req, res) => {
 
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, inviteCode } = req.body;
 
         const existingUser = await userModel.findOne({ email });
 
@@ -19,15 +19,19 @@ const userRegister = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const role  = inviteCode===process.env.ADMIN_INVITE?'admin':'user';
+
         const newUser = await userModel.create({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         });
 
 
         const token = jwt.sign({
-            id: newUser._id
+            id: newUser._id,
+            role: newUser.role
         },
             process.env.JWT_SECRET_KEY,
             {
@@ -45,7 +49,7 @@ const userRegister = async (req, res) => {
         res.status(201).json({
             message: 'User Registered Successfully',
             token,
-            user: { id: newUser._id, username: newUser.username, email: newUser.email }
+            user: { id: newUser._id, username: newUser.username, email: newUser.email,role:newUser.role }
         })
 
     } catch (error) {
@@ -74,12 +78,13 @@ const userlogin = async (req, res) => {
 
         if (!isPassword) {
             return res.status(401).json({
-                message: 'Email or Password is incorrect'
+                message: 'Invalid credentials'
             })
         }
 
         const token = jwt.sign({
-            id: user._id
+            id: user._id,
+            role: user.role
         },
             process.env.JWT_SECRET_KEY,
             {
@@ -97,7 +102,7 @@ const userlogin = async (req, res) => {
         res.status(200).json({
             message: 'User Logged in successfull',
             token,
-            user: { id: user._id, username: user.username, email: user.email }
+            user: { id: user._id, username: user.username, email: user.email, role: user.role }
         })
 
     } catch (error) {

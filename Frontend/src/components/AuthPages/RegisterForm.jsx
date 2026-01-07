@@ -9,20 +9,21 @@ import { useUserRegisterMutation } from "../../redux/api/userAuthApiSlice";
 
 const RegisterForm = () => {
 
-  const [registerMutation,{isLoading,error,data}] = useUserRegisterMutation();
+  const [registerMutation, { isLoading, error, data }] = useUserRegisterMutation();
 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    inviteCode: "",
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const registerUser = async () => {
-    const { username, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword, inviteCode } = formData;
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
@@ -30,7 +31,7 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await registerMutation({username,email,password}).unwrap();
+      const response = await registerMutation({ username, email, password, inviteCode }).unwrap();
       dispatch(
         userRegister({
           username: response.username,
@@ -133,14 +134,28 @@ const RegisterForm = () => {
             className="w-full px-4 py-2 bg-gray-800/50 text-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
           />
         </div>
+        {/* Secret Invite Code */}
+        <div className="mb-6">
+          <label className="block text-gray-300 font-semibold mb-2">
+            Secret Key (optional)
+          </label>
+          <input
+            type="text"
+            name="inviteCode"
+            value={formData.inviteCode}
+            onChange={handleChange}
+            placeholder="Enter secret key if you have one"
+            className="w-full px-4 py-2 bg-gray-800/50 text-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
+          />
+        </div>
 
         {/* Button */}
         <button
-        disabled={isLoading}
+          disabled={isLoading}
           type="submit"
           className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-bold shadow-lg hover:from-indigo-700 hover:to-purple-700 transition duration-300 transform hover:scale-105"
         >
-          {isLoading?'Registering..':'Register'}
+          {isLoading ? 'Registering..' : 'Register'}
         </button>
 
         {/* Extra */}
