@@ -37,11 +37,13 @@ const RegisterForm = () => {
           username: response.username,
           email: response.email,
           token: response.token,
+          role:response.role,
         })
       );
 
       toast.success("Registration successful!");
       console.log("Registration successful:", response);
+
 
       setTimeout(() => navigate("/login"), 2000); // redirect after toast
     } catch (error) {
@@ -115,6 +117,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             placeholder="Enter your password"
             required
+            autoComplete="off"
             className="w-full px-4 py-2 bg-gray-800/50 text-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
           />
         </div>
@@ -131,6 +134,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             placeholder="Confirm your password"
             required
+            autoComplete="off"
             className="w-full px-4 py-2 bg-gray-800/50 text-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
           />
         </div>
