@@ -1,5 +1,6 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const AllProductsOnPage = ({ category }) => {
     const products = [
@@ -17,7 +18,7 @@ const AllProductsOnPage = ({ category }) => {
             id: 2,
             title: "Organic Green Tea",
             description: "Premium loose-leaf green tea sourced from Himalayan farms.",
-            price:'$15.50',
+            price: '$15.50',
             rating: 4.7,
             category: "Grocery",
             stock: 100,
@@ -65,19 +66,33 @@ const AllProductsOnPage = ({ category }) => {
         }
     ];
 
+
+
+    const selector = useSelector((state) => state.searchInput.input);
+
+
     const filteredProducts = products.filter((p) => (
-        p.category === category
+        p.category.toLowerCase().trim() === category.toLowerCase().trim()
     ))
 
 
     const showProducts = category === 'All' ? products : filteredProducts;
 
+
+
+
+    const searchProducts = selector.trim() === "" ? showProducts : showProducts.filter(p =>
+        p.title.toLowerCase().includes(selector.toLowerCase()) ||
+        p.description.toLowerCase().includes(selector.toLowerCase()) ||
+        p.category.toLowerCase().includes(selector.toLowerCase())
+
+    );
     return (
         <div>
             <div className="main h-full w-full flex bg-gradient-to-r from-black via-gray-900 to-black">
                 <div className="products min-h-screen w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-14 px-8">
 
-                    {showProducts.length > 0 ? (showProducts.map((product, idx) => (
+                    {searchProducts.length > 0 ? (searchProducts.map((product, idx) => (
                         <div
                             key={idx}
                             className="product-card 

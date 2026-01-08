@@ -1,18 +1,27 @@
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { inputSearch } from "../../redux/features/searchItemsSlice";
+import { useDispatch } from "react-redux";
 
 const GeneralNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setinput] = useState('');
+
 
   const toggleHamburger = () => {
     setIsOpen(!isOpen);
   };
 
+  const dispatch = useDispatch();
+
+  
+
+
   return (
     <div className="w-full text-white">
       <div className="main h-20 bg-gradient-to-r from-black via-gray-900 to-black px-6 md:px-12 flex items-center justify-between ">
-        
+
         {/* Brand */}
         <div className="title text-3xl  font-extrabold tracking-wide cursor-pointer text-purple-400 hover:text-purple-300 transition">
           <h1>ShopOrbits</h1>
@@ -22,6 +31,11 @@ const GeneralNavbar = () => {
         <div className="search-input flex-1 flex items-center justify-center px-4">
           <input
             type="text"
+            value={input}
+            onChange={(e)=>{
+              setinput(e.target.value);
+              dispatch(inputSearch(e.target.value));
+            }}
             className="bg-gray-200 text-black px-4 py-2 w-full max-w-sm rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Search items..."
           />

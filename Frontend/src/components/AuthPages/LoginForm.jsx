@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { userLogin } from "../../redux/features/auth/userAuthSlice";
+import { userLogin } from "../../redux/features/userAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

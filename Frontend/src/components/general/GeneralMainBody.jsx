@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AllProductsOnPage from './AllProductsOnPage';
+import { useSelector } from 'react-redux';
 
 const GeneralMainBody = () => {
 
@@ -25,7 +26,7 @@ const GeneralMainBody = () => {
           </div>
         </div>
         <div className="products">
-          <AllProductsOnPage category = {selectedCategory}/>
+          <AllProductsOnPage category={selectedCategory} />
         </div>
       </main >
     </div >
