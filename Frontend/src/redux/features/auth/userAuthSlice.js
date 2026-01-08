@@ -6,6 +6,7 @@ export const userAuthSlice = createSlice({
     username: "",
     email: "",
     token: "",
+    role: "",
     isAuthenticated: false,
     isLoading: false,
     isError: null,
@@ -16,6 +17,7 @@ export const userAuthSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.token = action.payload.token;
+      state.role = action.payload.role;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.isError = null;
@@ -26,6 +28,7 @@ export const userAuthSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.token = action.payload.token;
+      state.role = action.payload.role;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.isError = null;
@@ -36,6 +39,7 @@ export const userAuthSlice = createSlice({
       state.username = "";
       state.email = "";
       state.token = "";
+      state.role = "";
       state.isAuthenticated = false;
       state.isLoading = false;
       state.isError = null;
@@ -44,6 +48,7 @@ export const userAuthSlice = createSlice({
     // Loading state
     setLoading: (state) => {
       state.isLoading = true;
+      state.isError = null;
     },
 
     // Error state
