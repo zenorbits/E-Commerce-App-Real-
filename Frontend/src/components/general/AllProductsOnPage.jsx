@@ -90,7 +90,7 @@ const AllProductsOnPage = ({ category }) => {
     return (
         <div>
             <div className="main h-full w-full flex bg-gradient-to-r from-black via-gray-900 to-black">
-                <div className="products min-h-screen w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-14 px-8">
+                <div className="products h-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-14 px-8">
 
                     {searchProducts.length > 0 ? (searchProducts.map((product, idx) => (
                         <div

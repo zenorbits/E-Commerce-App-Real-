@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import AllProductsOnPage from './AllProductsOnPage';
 import { useSelector } from 'react-redux';
+import JoinTheOrbit from './JoinTheOrbit';
+import Footer from './Footer';
 
 const GeneralMainBody = () => {
 
@@ -27,6 +29,12 @@ const GeneralMainBody = () => {
         </div>
         <div className="products">
           <AllProductsOnPage category={selectedCategory} />
+        </div>
+        <div className="joinOrbit">
+          <JoinTheOrbit/>
+        </div>
+        <div className="footer">
+          <Footer/>
         </div>
       </main >
     </div >
