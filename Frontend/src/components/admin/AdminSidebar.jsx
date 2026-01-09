@@ -43,7 +43,7 @@ const AdminSidebar = () => {
 
 
     return (
-        <div className="min-h-screen w-screen ">
+        <div className="min-h-screen w-64 ">
             <div className="main-side hidden sm:flex h-screen w-64 bg-gradient-to-r from-black via-gray-900 to-black text-white px-4 py-8  flex-col justify-between ">
                 <div className="title-list ">
                     <div className="title text-4xl font-extrabold text-purple-400">
@@ -62,7 +62,7 @@ const AdminSidebar = () => {
                         </motion.h1>
                     </div>
                     <div className="list flex pt-16 h-1/2 px-2">
-                        <motion.ul  className="flex flex-col items-start text-xl font-bold gap-6">
+                        <motion.ul  className="flex flex-col items-start text-xl font-bold gap-8">
                             {adminFeatures.map((features, idx) => (
                                 <MotionLink  to={features.path} key={idx} className="flex items-center gap-4 hover:text-purple-300 hover:translate-x-1 transition-all">
                                     {features.icon}
@@ -72,7 +72,7 @@ const AdminSidebar = () => {
                         </motion.ul>
                     </div>
                 </div>
-                <div className="profile flex gap-6 text-xl font-bold">
+                <div className="profile flex gap-6 text-xl font-bold hover:text-purple-300 hover:translate-x-1 transition-all cursor-pointer">
                     <FaUserCircle size={28} />
                     <div className="h1">Profile</div>
                 </div>
