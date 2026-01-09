@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/features/userAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +17,7 @@ const Loginform = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const selector = useSelector((state)=>state.userAuth.role);
 
   const loginUser = async () => {
     const { email, password } = formData;
@@ -29,6 +30,7 @@ const Loginform = () => {
         userLogin({
           email: response.email,
           token: response.token,
+          role:response.user.role
         })
       );
 
@@ -36,7 +38,10 @@ const Loginform = () => {
       console.log("Login successful:", response);
 
       // ✅ Redirect after success
-      setTimeout(() => navigate("/dashboard"), 2000);
+
+      if(response.user.role === 'admin'){
+         setTimeout(() => navigate("/admin/dashboard"), 2000);
+      }
     } catch (error) {
       console.error("Login failed:", error);
       toast.error(error?.data?.message || "Login failed");;
