@@ -6,6 +6,7 @@ import { useState } from "react";
 const AdminSidebar = () => {
     const MotionLink = motion.create(Link);
     const [isOpen, setIsOpen] = useState(false);
+    const [selctedPage, setselctedPage] = useState('Dashboard');
 
     const adminFeatures = [
         { title: 'Dashboard', icon: <FaTv size={22} />, path: "/admin/dashboard" },
@@ -14,6 +15,11 @@ const AdminSidebar = () => {
         { title: 'Add Products', icon: <FaBox size={22} />, path: "/admin/products/add" },
         { title: 'Manage Products', icon: <FaCogs size={22} />, path: "/admin/products/manage" },
     ];
+
+
+    const handleSelectedPage = (features) => {
+        setselctedPage(features)
+    }
 
     return (
         <>
@@ -40,10 +46,14 @@ const AdminSidebar = () => {
                         <motion.ul className="flex flex-col items-start text-xl font-bold gap-8">
                             {adminFeatures.map((features, idx) => (
                                 <MotionLink
+                                    className= {selctedPage === features.title?'flex items-center gap-4 text-purple-500 ':'flex items-center gap-4 hover:text-purple-300 hover:translate-x-1 transition-all' }
                                     to={features.path}
                                     key={idx}
-                                    className="flex items-center gap-4 hover:text-purple-300 hover:translate-x-1 transition-all"
-                                    onClick={() => setIsOpen(false)} // close sidebar on link click (mobile/tablet)
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        handleSelectedPage(features.title)
+                                        
+                                    }} // close sidebar on link click (mobile/tablet)
                                 >
                                     {features.icon}
                                     {features.title}
