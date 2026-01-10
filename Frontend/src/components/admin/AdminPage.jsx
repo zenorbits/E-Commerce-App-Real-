@@ -7,13 +7,12 @@ const AdminDashboard = () => {
   return (
     <div>
       <main>
-        <div className="sidebar flex">
-          {/* Sidebar */}
-          <AdminSidebar />
+        {/* Sidebar */}
+        <AdminSidebar />
 
-          {/* Main Content */}
+        {/* Main content wrapper */}
+        <div className=" lg:ml-64">
           <Routes>
-            {/* Use path instead of to */}
             <Route path="dashboard" element={<Dashboard />} />
           </Routes>
         </div>
