@@ -4,9 +4,8 @@ const cookieParser = require('cookie-parser'); // corrected module name
 const dotenv = require('dotenv');
 dotenv.config();
 const middleWare  = require('./middleware/middleware');
-
-
 const authRoute = require('./routes/auth.routes');
+const getUserInfo = require('./routes/userInfo.route');
 
 const cors = require('cors');
 app.use(cors({
@@ -31,7 +30,11 @@ app.use('/api/auth',authRoute);
 
 app.get('/admin/dashboard',middleWare.authMidddleWare,middleWare.requiredRole('admin'),(req,res)=>{
     res.send('Welcome Admin')
-})
+});
+
+//Get Users Route
+
+app.use('/api/get',getUserInfo);
 
 
 module.exports = app;

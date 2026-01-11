@@ -46,13 +46,13 @@ const AdminSidebar = () => {
                         <motion.ul className="flex flex-col items-start text-xl font-bold gap-8">
                             {adminFeatures.map((features, idx) => (
                                 <MotionLink
-                                    className= {selctedPage === features.title?'flex items-center gap-4 text-purple-500 ':'flex items-center gap-4 hover:text-purple-300 hover:translate-x-1 transition-all' }
+                                    className={selctedPage === features.title ? 'flex items-center gap-4 text-purple-500 ' : 'flex items-center gap-4 hover:text-purple-300 hover:translate-x-1 transition-all'}
                                     to={features.path}
                                     key={idx}
                                     onClick={() => {
                                         setIsOpen(false);
                                         handleSelectedPage(features.title)
-                                        
+
                                     }} // close sidebar on link click (mobile/tablet)
                                 >
                                     {features.icon}
